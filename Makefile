@@ -53,6 +53,8 @@ setup:
 	@echo "Setting up git config"
 	git config --global user.name "Kiong"
 	git config --global user.email "kiong90@gmail.com"
+	git config --global pager.log false
+	git config --global alias.lg "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
 
 	@echo
 	@echo "Creating '$(WORK_PATH)' directory"
@@ -92,8 +94,8 @@ setup:
 	@echo
 	@if [ -d $(WORK_PATH)/dot-files-personal ]; then \
 		echo "Setting up configs";\
-		cp $(WORK_PATH)/dot-files-personal/.zshrc ~/.zshrc  ;\
-		cp $(WORK_PATH)/dot-files-personal/.tool-versions ~/.tool-versions  ;\
+		ln -s $(WORK_PATH)/dot-files-personal/.zshrc ~/.zshrc;\
+		ln -s  $(WORK_PATH)/dot-files-personal/.tool-versions ~/.tool-versions;\
 		echo " =====> Config setup done";\
 	else \
 		echo;\
