@@ -8,7 +8,7 @@ PYTHON_CONFIG_FILE_PATH=./setup.py
 
 GIT_REPOSITORIES=dot-files-personal
 
-BREW_DEPS=wifi-password coreutils git asdf zsh-syntax-highlighting
+BREW_DEPS=wifi-password coreutils git asdf zsh-syntax-highlighting postgresql@16
 BREW_CASK_DEPS=iterm2 visual-studio-code github docker vlc maccy zoom
 ASDF_PLUGINS=ruby nodejs pnpm
 
@@ -98,18 +98,15 @@ setup:
 	else \
 		echo;\
 		echo " =====> You need dot-files-personal to proceed <====="; exit 1;\
-	fi \
+	fi
 
 	@if [ ! -d ~/.oh-my-zsh ]; then \
 		echo "Installing oh-my-zsh";\
 		sh -c "$$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)";\
 	fi
 
-	@echo "Updating oh-my-zsh"
-	omz update
-
 	@echo
-	@if [ $$(which -s brew) != 0 ]; then \
+	@if [ $$(which -s brew) != '' ]; then \
 		echo "Installing homebrew";\
 		zsh -c "$$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" -y; \
 	else \
@@ -117,6 +114,7 @@ setup:
 		brew update;\
 	fi
 
+	@echo
 	@if [ ! -d ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions ]; then \
 		echo "Installing zsh-autosuggestions";\
 		git clone https://github.com/zsh-users/zsh-autosuggestions $${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions;\
@@ -144,10 +142,23 @@ setup:
 	@echo
 	@echo "Updating asdf plugins ..."
 	@asdf plugin-update --all
+
+	@echo
 	@echo "Running asdf install"
 	@asdf install
+
+	@if !(brew list postgresql@16 >/dev/null); then \
+		echo; \
+		echo "Installing postgresql@16"; \
+		brew list postgresql@16; \
+	fi
+
+	@echo
+	@echo "Starting postgresql@16 service using brew"
+	brew services restart postgresql@16
 
 	@zsh
 	chsh -s $$(which zsh)
 
 	source ~/.zshrc
+	echo " =====> Setup done"
