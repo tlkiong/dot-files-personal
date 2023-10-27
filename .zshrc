@@ -134,3 +134,5 @@ autoload -Uz compinit && compinit -i
 export PATH=/opt/homebrew/bin:$PATH
 
 . /opt/homebrew/opt/asdf/libexec/asdf.sh
+
+export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
