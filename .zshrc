@@ -111,6 +111,9 @@ source $ZSH/oh-my-zsh.sh
   alias gpso='gps origin'
   alias gplo='gpl origin'
   alias gs='git status'
+  alias work='cd ~/Desktop/work-local'
+  alias zshrc='code ~/.zshrc'
+  alias sourcezsh='source ~/.zshrc'
 # End: Aliases
 
 # Highlight the current autocomplete option
