@@ -8,7 +8,7 @@ PYTHON_CONFIG_FILE_PATH=./setup.py
 
 GIT_REPOSITORIES=dot-files-personal
 
-BREW_DEPS=wifi-password coreutils git asdf zsh-syntax-highlighting postgresql@16 libpq commitizen
+BREW_DEPS=wifi-password coreutils git asdf zsh-syntax-highlighting postgresql@16 libpq commitizen aws-sam-cli
 BREW_CASK_DEPS=iterm2 visual-studio-code github docker vlc maccy zoom postman
 ASDF_PLUGINS=ruby nodejs pnpm
 
