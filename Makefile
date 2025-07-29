@@ -174,11 +174,12 @@ setup:
 		  /bin/bash -c "$$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" || { echo "  Failed to install Homebrew" >&2; exit 1; }; \
 		  echo "  Homebrew installed successfully"; \
 		  echo; \
-		  echo "  Configuring shell for Homebrew..."; \
-		  echo >> "$$HOME/.zprofile"; \
-		  echo "# Homebrew" >> "$$HOME/.zprofile"; \
-		  echo 'eval "$$(/opt/homebrew/bin/brew shellenv)"' >> "$$HOME/.zprofile"; \
-		  eval "$$(/opt/homebrew/bin/brew shellenv)"; \
+		
+			echo "  Configuring shell for Homebrew..."; \
+			echo >> $(HOME)/.zprofile;	\
+			echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> $(HOME)/.zprofile; \
+			eval "$(/opt/homebrew/bin/brew shellenv)"; \
+
 		  if ! command -v brew >/dev/null 2>&1; then \
 		    echo "  Error: Homebrew installation failed - brew command not found" >&2; \
 		    exit 1; \
