@@ -176,9 +176,14 @@ setup:
 		  echo; \
 		  echo "  Configuring shell for Homebrew..."; \
 		  echo >> "$$HOME/.zprofile"; \
+		  echo "# Homebrew" >> "$$HOME/.zprofile"; \
 		  echo 'eval "$$(/opt/homebrew/bin/brew shellenv)"' >> "$$HOME/.zprofile"; \
 		  eval "$$(/opt/homebrew/bin/brew shellenv)"; \
-		  echo "  Homebrew environment configured in .zprofile and current shell"' \
+		  if ! command -v brew >/dev/null 2>&1; then \
+		    echo "  Error: Homebrew installation failed - brew command not found" >&2; \
+		    exit 1; \
+	  	  fi; \
+		  echo "  Homebrew environment configured in .zprofile and current shell"' || exit 1; \
 	else \
 		echo "  Homebrew is already installed"; \
 		echo "  Updating Homebrew..."; \
