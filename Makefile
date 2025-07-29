@@ -169,13 +169,9 @@ setup:
 	@echo "Checking Homebrew installation..."
 	@if ! command -v brew >/dev/null 2>&1; then \
 		echo "  Installing Homebrew..."; \
-		if /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"; then \
-			echo "  Homebrew installed successfully"; \
-			eval "$(/opt/homebrew/bin/brew shellenv)"; \
-		else \
-			echo "  Failed to install Homebrew" >&2; \
-			exit 1; \
-		fi; \
+		/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" || { echo "  Failed to install Homebrew" >&2; exit 1; }; \
+		echo "  Homebrew installed successfully"; \
+		eval "$(/opt/homebrew/bin/brew shellenv)"; \
 	else \
 		echo "  Homebrew is already installed"; \
 		echo "  Updating Homebrew..."; \
