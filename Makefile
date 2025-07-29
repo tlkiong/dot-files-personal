@@ -269,12 +269,10 @@ setup:
 			echo "  Failed to install PostgreSQL" >&2; \
 			exit 1; \
 		else \
-			# Get the installed version after installation
 			POSTGRES_VERSION=$$(brew list --versions postgresql | grep -oE '[0-9]+\.[0-9]+(\.[0-9]+)?' | head -1); \
 			echo "  Successfully installed PostgreSQL $${POSTGRES_VERSION}"; \
 		fi; \
 	else \
-		# Get the installed version
 		POSTGRES_VERSION=$$(psql --version | grep -oE '[0-9]+\.[0-9]+(\.[0-9]+)?' | head -1); \
 		echo "  PostgreSQL $${POSTGRES_VERSION} is already installed"; \
 	fi
