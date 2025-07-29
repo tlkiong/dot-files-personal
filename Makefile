@@ -207,7 +207,7 @@ setup:
 
 	@echo
 	@echo "Installing brew dependencies..."
-	@for dep in $${BREW_DEPS}; do \
+	@for dep in ${BREW_DEPS}; do \
 		if ! brew list "$$dep" >/dev/null 2>&1; then \
 			echo "  Installing $$dep..."; \
 			brew install "$$dep"; \
@@ -219,7 +219,7 @@ setup:
 
 	@echo
 	@echo "Installing brew cask dependencies..."
-	@for dep in $${BREW_CASK_DEPS}; do \
+	@for dep in ${BREW_CASK_DEPS}; do \
 		if ! brew list --cask "$$dep" >/dev/null 2>&1; then \
 			echo "  Installing $$dep..."; \
 			brew install --cask "$$dep"; \
@@ -231,7 +231,7 @@ setup:
 
 	@echo
 	@echo "Setting up asdf plugins..."
-	@for plugin in $${ASDF_PLUGINS}; do \
+	@for plugin in ${ASDF_PLUGINS}; do \
 		if ! asdf plugin-list | grep -q "^$$plugin$$"; then \
 			echo "  Adding asdf plugin: $$plugin"; \
 			asdf plugin-add "$$plugin"; \
@@ -256,10 +256,10 @@ setup:
 	if ! command -v psql >/dev/null 2>&1; then \
 		echo "  Installing latest PostgreSQL..."; \
 		brew install postgresql; \
-		POSTGRES_VERSION=$$(brew list --versions postgresql | grep -oE '[0-9]+\.[0-9]+(\.[0-9]+)?' | head -1); \
+		POSTGRES_VERSION=$(brew list --versions postgresql | grep -oE '[0-9]+\.[0-9]+(\.[0-9]+)?' | head -1); \
 		echo "  Successfully installed PostgreSQL $${POSTGRES_VERSION}"; \
 	else \
-		POSTGRES_VERSION=$$(psql --version | grep -oE '[0-9]+\.[0-9]+(\.[0-9]+)?' | head -1); \
+		POSTGRES_VERSION=$(psql --version | grep -oE '[0-9]+\.[0-9]+(\.[0-9]+)?' | head -1); \
 		echo "  PostgreSQL $${POSTGRES_VERSION} is already installed"; \
 	fi
 
