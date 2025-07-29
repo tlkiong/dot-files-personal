@@ -169,7 +169,8 @@ setup:
 	@echo "Checking Homebrew installation..."
 	@if ! command -v brew >/dev/null 2>&1; then \
 		echo "  Installing Homebrew..."; \
-		/bin/bash -c 'set -e; \
+		NONINTERACTIVE=1 /bin/bash -c 'set -e; \
+		  echo "  Running Homebrew installer in non-interactive mode..."; \
 		  /bin/bash -c "$$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" || { echo "  Failed to install Homebrew" >&2; exit 1; }; \
 		  echo "  Homebrew installed successfully"; \
 		  eval "$$(/opt/homebrew/bin/brew shellenv)"; \
