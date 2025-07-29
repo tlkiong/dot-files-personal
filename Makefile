@@ -1,8 +1,8 @@
 COMPUTER_NAME=$$(scutil --get HostName)
-WORK_PATH=~/Desktop/work-local
+WORK_PATH=$(HOME)/Desktop/work-local
 
-SSH_FILE_PATH=~/.ssh/$(COMPUTER_NAME)
-SSH_CONFIG_FILE_PATH=~/.ssh/config
+SSH_FILE_PATH=$(HOME)/.ssh/$(COMPUTER_NAME)
+SSH_CONFIG_FILE_PATH=$(HOME)/.ssh/config
 
 PYTHON_CONFIG_FILE_PATH=./setup.py
 
