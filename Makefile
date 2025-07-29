@@ -173,8 +173,12 @@ setup:
 		  echo "  Running Homebrew installer in non-interactive mode..."; \
 		  /bin/bash -c "$$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" || { echo "  Failed to install Homebrew" >&2; exit 1; }; \
 		  echo "  Homebrew installed successfully"; \
+		  echo; \
+		  echo "  Configuring shell for Homebrew..."; \
+		  echo >> "$$HOME/.zprofile"; \
+		  echo 'eval "$$(/opt/homebrew/bin/brew shellenv)"' >> "$$HOME/.zprofile"; \
 		  eval "$$(/opt/homebrew/bin/brew shellenv)"; \
-		  echo "  Homebrew environment configured"' \
+		  echo "  Homebrew environment configured in .zprofile and current shell"' \
 	else \
 		echo "  Homebrew is already installed"; \
 		echo "  Updating Homebrew..."; \
