@@ -263,19 +263,25 @@ setup:
 
 	@echo
 	@echo "Checking PostgreSQL installation..."
-	if ! brew list postgresql@16 >/dev/null 2>&1; then \
-		echo "  Installing PostgreSQL 16..."; \
-		if ! brew install postgresql@16; then \
-			echo "  Failed to install PostgreSQL 16" >&2; \
+	if ! command -v psql >/dev/null 2>&1; then \
+		echo "  Installing latest PostgreSQL..."; \
+		if ! brew install postgresql; then \
+			echo "  Failed to install PostgreSQL" >&2; \
 			exit 1; \
+		else \
+			# Get the installed version after installation
+			POSTGRES_VERSION=$$(brew list --versions postgresql | grep -oE '[0-9]+\.[0-9]+(\.[0-9]+)?' | head -1); \
+			echo "  Successfully installed PostgreSQL $${POSTGRES_VERSION}"; \
 		fi; \
 	else \
-		echo "  PostgreSQL 16 is already installed"; \
+		# Get the installed version
+		POSTGRES_VERSION=$$(psql --version | grep -oE '[0-9]+\.[0-9]+(\.[0-9]+)?' | head -1); \
+		echo "  PostgreSQL $${POSTGRES_VERSION} is already installed"; \
 	fi
 
 	@echo
 	@echo "Starting PostgreSQL service..."
-	if ! brew services restart postgresql@16; then \
+	if ! brew services restart postgresql; then \
 		echo "  Failed to start PostgreSQL service" >&2; \
 		exit 1; \
 	else \
