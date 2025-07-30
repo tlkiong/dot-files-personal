@@ -9,7 +9,7 @@ PYTHON_CONFIG_FILE_PATH=./setup.py
 GIT_REPOSITORIES=dot-files-personal
 
 BREW_DEPS=wifi-password coreutils git asdf zsh-syntax-highlighting postgresql@16 libpq commitizen
-BREW_CASK_DEPS=iterm2 visual-studio-code github docker vlc maccy zoom postman
+BREW_CASK_DEPS=iterm2 visual-studio-code github docker vlc maccy postman
 ASDF_PLUGINS=ruby nodejs pnpm
 
 
@@ -191,7 +191,7 @@ setup:
 	@echo "Setting up zsh plugins..."
 	@if [ ! -d "$${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions" ]; then \
 		echo "  Installing zsh-autosuggestions..."; \
-		git clone https://github.com/zsh-users/zsh-autosuggestions "$${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions"; \
+		git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions; \
 		echo "  zsh-autosuggestions installed successfully"; \
 	else \
 		echo "  zsh-autosuggestions is already installed"; \
@@ -199,7 +199,7 @@ setup:
 
 	@if [ ! -d "$${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting" ]; then \
 		echo "  Installing zsh-syntax-highlighting..."; \
-		git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "$${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting"; \
+		git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting; \
 		echo "  zsh-syntax-highlighting installed successfully"; \
 	else \
 		echo "  zsh-syntax-highlighting is already installed"; \
