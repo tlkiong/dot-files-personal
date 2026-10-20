@@ -73,5 +73,26 @@ zstyle ':completion:*:(ssh|scp|rsync):*:hosts-ipaddr' ignored-patterns '^(<->.<-
 zstyle ':completion:*' matcher-list '' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' \
   '+l:|?=** r:|?=**'
 
+# kubectl completion needs compinit, so it comes after oh-my-zsh
+(( $+commands[kubectl] )) && source <(kubectl completion zsh)
+
+# New branch in a sibling worktree
+gwtb() {
+  if [[ -z $1 ]]; then echo "usage: gwtb <branch-name>"; return 1; fi
+  git worktree add "../$1" -b "$1"
+}
+
+mkdircd() { mkdir -p -- "$1" && cd -- "$1"; }
+
+# Switch AWS profile, logging in through SSO only when the session has expired
+awsUse() {
+  if ! (( $+commands[aws] )); then echo "aws CLI not found: brew install awscli"; return 1; fi
+  if [[ -z $1 ]]; then echo "usage: awsUse <profile>"; return 1; fi
+  export AWS_PROFILE="$1"
+  aws sts get-caller-identity >/dev/null 2>&1 || aws sso login --profile "$1"
+  aws sts get-caller-identity --output table
+}
+alias aws-use=awsUse
+
 # Machine-specific overrides and secrets live in an untracked file
 [[ -r ~/.zshrc.local ]] && source ~/.zshrc.local
