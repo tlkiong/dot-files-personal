@@ -57,3 +57,6 @@ fpath=(${ASDF_DATA_DIR:-$HOME/.asdf}/completions $fpath)
 autoload -Uz compinit && compinit
 
 export PATH="$HOME/.npm-global/bin:$PATH"
+
+# Machine-specific overrides and secrets live in an untracked file
+[[ -r ~/.zshrc.local ]] && source ~/.zshrc.local
