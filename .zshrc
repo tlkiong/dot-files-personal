@@ -96,3 +96,19 @@ alias aws-use=awsUse
 
 # Machine-specific overrides and secrets live in an untracked file
 [[ -r ~/.zshrc.local ]] && source ~/.zshrc.local
+
+# Startup prompt: jump to work-local or stay. Runs last so Ctrl-C cannot skip the
+# config above. Only in a real terminal that opened in $HOME; skipped in Claude
+# Code, CI, VS Code's environment probe and nested shells.
+if [[ -o interactive && -t 0 && -z $_WORK_PROMPT_SHOWN && $PWD == "$HOME" && -d ~/Desktop/work-local ]] \
+  && [[ -z $CLAUDECODE && -z $CI && -z $VSCODE_RESOLVING_ENVIRONMENT ]]; then
+  export _WORK_PROMPT_SHOWN=1
+  print -P "%F{green}▸%f  [%Bw%b] work-local   [%BEnter%b] stay in %F{cyan}%~%f"
+  if read -k 1 -t 10 "?  "; then
+    print
+    [[ $REPLY == [wW] ]] && cd ~/Desktop/work-local
+  else
+    print "\n  no answer, staying here"
+  fi
+  unset REPLY
+fi
