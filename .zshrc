@@ -34,10 +34,13 @@ source $ZSH/oh-my-zsh.sh
 
 # Aliases
   alias be='bundle exec'
+  alias gchm='git checkout main'
   alias gps='git push'
   alias gpl='git pull'
   alias gpso='gps origin'
   alias gplo='gpl origin'
+  alias gpsm='gpso main'
+  alias gplm='gplo main'
   alias gs='git status'
   alias glog='git log'
   alias glg='git lg'
@@ -51,6 +54,11 @@ source $ZSH/oh-my-zsh.sh
   alias work='cd ~/Desktop/work-local'
 
   alias br='bun run'
+
+  alias bid='bun add -D'
+  alias bi='bun add'
+  alias cld='claude'
+  alias cldebug='claude --debug'
 # End: Aliases
 
 # Highlight the current autocomplete option
