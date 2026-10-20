@@ -1,10 +1,33 @@
+# ~/.zshrc is a symlink to dot-files-personal/.zshrc. That repo is public, so
+# secrets and machine-specific settings go in ~/.zshrc.local, which is not tracked.
+
+typeset -U path fpath   # no duplicate entries, even after `sourcezsh`
+
+# Homebrew: PATH, MANPATH, HOMEBREW_* and its completions on fpath
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
+# asdf 0.16+ has no asdf.sh: shims on PATH and completions on fpath are enough
+export ASDF_DATA_DIR="${ASDF_DATA_DIR:-$HOME/.asdf}"
+fpath=($ASDF_DATA_DIR/completions(N-/) $fpath)
+
+# PATH, highest precedence first. (N-/) skips directories that do not exist.
+path=(
+  $HOME/.local/bin(N-/)                # claude
+  $HOME/.bun/bin(N-/)                  # bun add -g binaries
+  $HOME/.npm-global/bin(N-/)           # npm i -g binaries
+  $ASDF_DATA_DIR/shims(N-/)            # node, bun and ruby from .tool-versions
+  $HOMEBREW_PREFIX/opt/libpq/bin(N-/)  # psql, pg_dump
+  $path
+)
+
+# Oh My Zsh runs compinit itself, so fpath must be final before it loads.
 export ZSH="$HOME/.oh-my-zsh"
 ZSH_THEME="daveverwer"
 
 plugins=(
   git
-  zsh-syntax-highlighting
   zsh-autosuggestions
+  zsh-syntax-highlighting   # must stay last
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -41,22 +64,6 @@ zstyle ':completion:*:(ssh|scp|rsync):*:hosts-ipaddr' ignored-patterns '^(<->.<-
 # Allow for autocomplete to be case insensitive
 zstyle ':completion:*' matcher-list '' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' \
   '+l:|?=** r:|?=**'
-
-# Initialize the autocompletion
-autoload -Uz compinit && compinit -i
-
-export PATH=/opt/homebrew/bin:$PATH
-
-export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
-
-
-export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
-# append completions to fpath
-fpath=(${ASDF_DATA_DIR:-$HOME/.asdf}/completions $fpath)
-# initialise completions with ZSH's compinit
-autoload -Uz compinit && compinit
-
-export PATH="$HOME/.npm-global/bin:$PATH"
 
 # Machine-specific overrides and secrets live in an untracked file
 [[ -r ~/.zshrc.local ]] && source ~/.zshrc.local
