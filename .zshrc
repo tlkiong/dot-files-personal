@@ -27,9 +27,6 @@ source $ZSH/oh-my-zsh.sh
 
   alias work='cd ~/Desktop/work-local'
 
-  alias ws='windsurf'
-  alias kiro='open -a "kiro"'
-
   alias br='bun run'
 # End: Aliases
 
@@ -51,9 +48,6 @@ autoload -Uz compinit && compinit -i
 export PATH=/opt/homebrew/bin:$PATH
 
 export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
-
-# Added by Windsurf
-export PATH="/Users/kiong/.codeium/windsurf/bin:$PATH"
 
 
 export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
